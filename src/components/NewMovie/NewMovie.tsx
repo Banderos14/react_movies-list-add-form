@@ -14,7 +14,7 @@ type NewMovieProps = {
 export const NewMovie = ({ onAdd }: NewMovieProps) => {
   // Increase the count after successful form submission
   // to reset touched status of all the `Field`s
-  const [count] = useState(0);
+  const [count, setCount] = useState(0);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [imgUrl, setImgUrl] = useState('');
@@ -25,7 +25,7 @@ export const NewMovie = ({ onAdd }: NewMovieProps) => {
     title.trim() && imgUrl.trim() && imdbUrl.trim() && imdbId.trim();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); // чтобы страница не перезагружалась
+    event.preventDefault();
 
     const newMovie = {
       title,
@@ -36,6 +36,14 @@ export const NewMovie = ({ onAdd }: NewMovieProps) => {
     };
 
     onAdd(newMovie);
+
+    setTitle('');
+
+    setDescription('');
+    setImgUrl('');
+    setImdbUrl('');
+    setImdbId('');
+    setCount(currentCount => currentCount + 1);
   };
 
   return (
